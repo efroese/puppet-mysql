@@ -14,10 +14,15 @@ Parameters:
 */
 class mysql::server (
     $mysql_user = 'root',
-    $mysql_password = undef
+    $mysql_password = undef,
+    $mysql_data_dir = "",
+    $mysql_backupdir = "",
     ) {
-
-  include mysql::params
+  
+  class { "mysql::params":
+    mysql_data_dir  => $mysql_data_dir,
+    mysql_backupdir => $mysql_backupdir,
+  }
 
   user { "mysql":
     ensure => present,
